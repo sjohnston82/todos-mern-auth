@@ -2,6 +2,7 @@ const User = require("../models/User");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const Todo = require("../models/Todo");
+const moment = require("moment");
 
 const router = express.Router();
 const SECRET_KEY =
@@ -96,8 +97,9 @@ router.put("/done/:id", (req, res) => {
 
       Todo.findById(req.params.id, function (err, todo) {
         todo.completed = !todo.completed;
+
         if (todo.completedOn === null) {
-          todo.completedOn = new Date().toLocaleString();
+          todo.completedOn = moment().format("YYYY-MM-DD");
         } else {
           todo.completedOn = null;
         }

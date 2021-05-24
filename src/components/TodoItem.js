@@ -1,5 +1,5 @@
 import React from "react";
-import "./Todo.css";
+import "../styles/Todo.css";
 import CompletedOn from "./CompletedOn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
@@ -20,13 +20,7 @@ const TodoItem = (props) => {
       >
         {props.todo.text}
       </p>
-      {props.todo.completed && (
-        <CompletedOn
-          data={props.todo.completedOn.toLocaleString()}
-          todo={props.todo}
-        />
-
-      )}
+      {props.todo.completed && <CompletedOn todo={props.todo} />}
       <FontAwesomeIcon
         onClick={() => props.removeTodo(props.todo._id)}
         icon={faTimesCircle}

@@ -1,11 +1,11 @@
 import React from "react";
 // import "./CompletedOn.css";
+import moment from "moment";
 
 const CompletedOn = (props) => {
-  console.log(props.data);
   return (
     <div>
-      <p id="completed-on">Completed on {props.data}</p>
+      <p id="completed-on">Completed on {moment().format("YYYY-MM-DD")}</p>
     </div>
   );
 };

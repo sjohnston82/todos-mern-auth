@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
 import "./App.css";
-import Login from "./Login";
-import Welcome from "./Welcome";
-import Register from "./Register";
-import CreateTodo from "./CreateTodo";
-import TodoList from "./TodoList";
-import Logout from "./Logout";
+import Login from "./pages/Login";
+import Welcome from "./components/Welcome";
+import Register from "./pages/Register";
+import CreateTodo from "./pages/CreateTodo";
+import TodoList from "./components/TodoList";
+import Logout from "./pages/Logout";
+import moment from "moment";
 
 export const CredentialsContext = React.createContext();
 
@@ -60,7 +61,7 @@ function App() {
         ? {
             ...todo,
             completed: !todo.completed,
-            completedOn: { currentTime: new Date().toLocaleString() },
+            completedOn: moment().format("YYYY-MM-DD"),
           }
         : { ...todo };
     });
@@ -95,29 +96,27 @@ function App() {
         {!credentials && <Link to="/register">Register</Link>}
       </nav>
       <Switch>
-        <CredentialsContext.Provider value={credentials}>
-          <Route exact path="/">
-            <Welcome credentials={credentials} />
-            <TodoList
-              todos={todos}
-              setTodos={setTodos}
-              deleteTodo={deleteTodo}
-              handleToggle={handleToggle}
-            />
-          </Route>
-          <Route path="/login">
-            <Login setCredentials={setCredentials} />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/create">
-            <CreateTodo credentials={credentials} getTodos={getTodos} />
-          </Route>
-          <Route path="/logout">
-            <Logout credentials={credentials} setCredentials={setCredentials} />
-          </Route>
-        </CredentialsContext.Provider>
+        <Route exact path="/">
+          <Welcome credentials={credentials} />
+          <TodoList
+            todos={todos}
+            setTodos={setTodos}
+            deleteTodo={deleteTodo}
+            handleToggle={handleToggle}
+          />
+        </Route>
+        <Route path="/login">
+          <Login setCredentials={setCredentials} />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/create">
+          <CreateTodo credentials={credentials} getTodos={getTodos} />
+        </Route>
+        <Route path="/logout">
+          <Logout credentials={credentials} setCredentials={setCredentials} />
+        </Route>
       </Switch>
     </div>
   );

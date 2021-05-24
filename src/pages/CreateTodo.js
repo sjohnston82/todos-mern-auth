@@ -1,9 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-// import { CredentialsContext } from "./App";
 
 const CreateTodo = (props) => {
-  // const [credentials] = useContext(CredentialsContext);
   const [newTodo, setNewTodo] = useState({
     text: "",
     completed: false,
@@ -14,8 +12,6 @@ const CreateTodo = (props) => {
   const token = props.credentials.token;
 
   const history = useHistory();
-
-  //  possibly get rid of this, set new item to todos array in parent and then pass the entire new array as that users todos
 
   const postNewTodo = (todo) =>
     fetch("http://localhost:8000/create", {
